@@ -1,0 +1,17 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      TRYON_ENABLED: "${TRYON_ENABLED:-0}"
+    volumes:
+      - ./df_with_labels.pkl:/app/df_with_labels.pkl:ro
+      - ./clip_embeddings.npy:/app/clip_embeddings.npy:ro
+      - ./images:/app/images:ro
+      - ./hd_cache:/app/hd_cache
+      - ./outfit_cache:/app/outfit_cache
+      - ./tryon_cache:/app/tryon_cache
+    restart: unless-stopped
